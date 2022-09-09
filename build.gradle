@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+group = 'com.roe.es.app'
+version = '1.0'
+
+sourceCompatibility = 1.8 // java 8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("com.google.guava:guava:29.0-jre")
+    implementation("org.apache.flink:flink-connector-kafka-0.11_2.11:1.5.0")
+    implementation("org.apache.flink:flink-streaming-java_2.11:1.5.0")
+    implementation("org.apache.flink:flink-core:1.5.0")
+    implementation("org.apache.flink:flink-java:1.5.0")
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+wrapper {
+    gradleVersion = "7.3.3"
+    distributionType = Wrapper.DistributionType.ALL
+}
